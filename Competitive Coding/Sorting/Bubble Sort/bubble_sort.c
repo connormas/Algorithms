@@ -1,4 +1,3 @@
-
 // BUBBLE SORT
 
 #include <stdio.h>
@@ -27,20 +26,21 @@ void swap(int *a, int *b)
 }
 int main()
 {
-    int array[100], i, size;
-    printf("How many numbers you want to sort:  ");  // Enter the numbers to sort
-    
-    scanf("%d", &size);
-    
-    printf("\nEnter %d numbers : ", size);
-    for (i = 0; i < size; i++)
-        scanf("%d", &array[i]);
+    int nts = 550000;
+    int array[nts], size;
+    size = nts;
+    int j = 0;
+    for (int i = nts; i >= 0; i--) {
+      array[j] = i;
+      j++;
+    }
     bubblesort(array, size);
     printf("\nSorted array is ");
  
-    for (i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
         printf(" %d ", array[i]);
     printf(" ");
     return 0;
  
 }
+
