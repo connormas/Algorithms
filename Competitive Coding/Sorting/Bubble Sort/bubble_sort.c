@@ -26,7 +26,8 @@ void swap(int *a, int *b)
 }
 int main()
 {
-    int nts = 550000;
+    //int nts = 550000;  // 0.65 IPC
+    int nts = 1000000;   // 0.56 IPC
     int array[nts], size;
     size = nts;
     int j = 0;
