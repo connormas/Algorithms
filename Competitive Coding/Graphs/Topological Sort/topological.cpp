@@ -1,9 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
- 
-#define MAX 100
- 
-void create_graph();
+#include<iostream> 
+#include<fstream>
+#include<string>
+#include<vector>
+#define MAX 1024
+
+using namespace std;
+
+void create_graph(const string filename);
 void add(int vertex);
 int del();
 int isEmpty();
@@ -18,7 +23,9 @@ int rear = -1;
 int main()
 {
 	int i, count, topological_sort[MAX], indegree[MAX];
-	create_graph();
+	string filename = "k10.el";  // hardcoded because I don't know how to
+                               // specify CLI args for esesc
+  create_graph(filename);
 	//calculating the in-degree for all vertices.
 	for(i = 0; i < total_vertices; i++)
 	{
@@ -118,31 +125,36 @@ int find_indegree_of_vertex(int vertex)
 	}
 	return total_indegree;
 }
+
+vector<string> split (const string& line, const string& delimiters) {
+   vector<string> words;
+   size_t end = 0;
+
+   // Loop over the string, splitting out words, and for each word
+   // thus found, append it to the output wordvec.
+   for (;;) {
+      size_t start = line.find_first_not_of (delimiters, end);
+      if (start == string::npos) break;
+      end = line.find_first_of (delimiters, start);
+      words.push_back (line.substr (start, end - start));
+   }
+   return words;
+}
+
+
 //Generate the required graph 
-void create_graph()
+void create_graph(const string filename)
 {
 	int count, maximum_edges, origin_vertex, destination_vertex;
-	printf("Enter number of vertices:\t");
-	scanf("%d", &total_vertices);
-	//Maximum edges possible with fixed number of vertices.
+  total_vertices = 1024;
 	maximum_edges = total_vertices * (total_vertices - 1);
-	for(count = 1; count <= maximum_edges; count++)
-	{
-		printf("Enter Edge [%d] co-ordinates (-1 -1 to quit)\n", count);
-		printf("Enter Origin Vertex:\t");
-		scanf("%d", &origin_vertex);
-		printf("Enter Destination Vertex:\t");
-		scanf("%d", &destination_vertex);
-		if((origin_vertex == -1) && (destination_vertex == -1))
-		{
-			break;
-		}
-		if(origin_vertex >= total_vertices || destination_vertex >= total_vertices || origin_vertex < 0 || destination_vertex < 0)
-		{
-			printf("Edge Co-ordinates are Invalid\n");
-			count--;
-		}
-		else
-			adjacent_matrix[origin_vertex][destination_vertex] = 1;
-	}
+  cout << "opening file called " << filename << endl;
+  fstream edgelist (filename, ios::in);
+  string edge;
+  while (getline(edgelist, edge)) {
+    auto verts = split(edge, " "); 
+    //cout << stoi(verts[0]) << " " << stoi(verts[1]) << endl;
+		adjacent_matrix[stoi(verts[0])][stoi(verts[1])] = 1;
+  }
+  edgelist.close();
 }

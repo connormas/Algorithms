@@ -4,14 +4,20 @@
 
 int main(){
 
-  int i,j,s,temp,a[20];
+  int i,j,s,temp,a[1500000];
 
-  printf("Enter total elements: ");
-  scanf("%d",&s);
+  //printf("Enter total elements: ");
+  //scanf("%d",&s);
 
-  printf("Enter %d elements: ",s);
-  for(i=0;i<s;i++)
-      scanf("%d",&a[i]);
+  //printf("Enter %d elements: ",s);
+  //for(i=0;i<s;i++)
+  //    scanf("%d",&a[i]);
+
+  s = 1500000;
+  int t = s;
+  for (i=0; i<s; i++) {
+    a[i] = t--;
+  }
 
   for(i=1;i<s;i++){
       temp=a[i];

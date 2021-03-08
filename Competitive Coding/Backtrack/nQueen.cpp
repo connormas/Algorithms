@@ -1,5 +1,6 @@
 /* C/C++ program to solve N Queen Problem using backtracking */
-#define N 4
+#define N 30
+//#define N 4 
 #include<stdio.h>
 
 /* A utility function to print solution */
@@ -80,11 +81,17 @@ bool solveNQUtil(int board[N][N], int col)
    feasible solutions.*/
 bool solveNQ()
 {
-    int board[N][N] = { {0, 0, 0, 0},
+    /*int board[N][N] = { {0, 0, 0, 0},
         {0, 0, 0, 0},
         {0, 0, 0, 0},
         {0, 0, 0, 0}
-    };
+    };*/
+    int board[N][N];
+    for (size_t i = 0; i < N; i++) {
+      for (size_t j = 0; j < N; j++) {
+        board[i][j] = 0;
+      }
+    }
 
     if ( solveNQUtil(board, 0) == false )
     {

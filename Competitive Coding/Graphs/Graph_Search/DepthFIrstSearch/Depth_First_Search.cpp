@@ -31,18 +31,38 @@ void DFS(vector<int>adj[],int V)
 	}
 }
 
+vector<string> split (const string& line, const string& delimiters) {
+   vector<string> words;
+   size_t end = 0;
+
+   // Loop over the string, splitting out words, and for each word
+   // thus found, append it to the output wordvec.
+   for (;;) {
+      size_t start = line.find_first_not_of (delimiters, end);
+      if (start == string::npos) break;
+      end = line.find_first_of (delimiters, start);
+      words.push_back (line.substr (start, end - start));
+   }
+   return words;
+}
+
 int main()
 {
-	 int V = 5;
-    vector<int> adj[V];
-    addEdge(adj, 0, 1);
-    addEdge(adj, 0, 4);
-    addEdge(adj, 1, 2);
-    addEdge(adj, 1, 3);
-    addEdge(adj, 1, 4);
-    addEdge(adj, 2, 3);
-    addEdge(adj, 3, 4);
-    DFS(adj, V);
-    cout<<"\n";
-    return 0;
+	int V = 524288;
+  vector<int> adj[V];
+  cout << "made vectors and V" << endl;
+  string filename = "k19.el";
+  fstream edgelist (filename, ios::in);
+  cout << "opened file" << endl;
+  string edge;
+  while (getline(edgelist, edge)) {
+    auto verts = split(edge, " "); 
+    //cout << stoi(verts[0]) << " " << stoi(verts[1]) << endl;
+		addEdge(adj, stoi(verts[0]), stoi(verts[1]));
+  }
+  edgelist.close();
+  cout << "added edges" << endl;
+  DFS(adj, V);
+  cout<<"\n";
+  return 0;
 }
